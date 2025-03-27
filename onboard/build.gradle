@@ -1,5 +1,7 @@
 plugins {
     id 'com.android.library'
+    id 'maven-publish' // Add this
+
 }
 
 android {
@@ -22,6 +24,13 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+            withJavadocJar()
+        }
     }
 }
 
@@ -47,4 +56,17 @@ dependencies {
     implementation 'com.google.firebase:firebase-config'
 
 
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            create("release", MavenPublication) {
+                from components.getByName("release") // Correct way to get release component
+                groupId = 'com.github.YOUR_GITHUB_USERNAME' // Replace with your GitHub username
+                artifactId = 'onboard'  // Library name
+                version = '1.0.0'  // Change when updating
+            }
+        }
+    }
 }
