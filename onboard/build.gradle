@@ -63,7 +63,7 @@ afterEvaluate {
         publications {
             create("release", MavenPublication) {
                 from components.getByName("release") // Correct way to get release component
-                groupId = 'com.github.YOUR_GITHUB_USERNAME' // Replace with your GitHub username
+                groupId = 'com.github.DevaniBhadresh' // Replace with your GitHub username
                 artifactId = 'onboard'  // Library name
                 version = '1.0.0'  // Change when updating
             }
