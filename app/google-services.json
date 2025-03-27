@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "636222151628",
+    "project_id": "foflow-ec131",
+    "storage_bucket": "foflow-ec131.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636222151628:android:10ccb8f71b9a32398edb69",
+        "android_client_info": {
+          "package_name": "com.bwi.foflow"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCmix7QKF0yMW1oYVaSOZHgz4gGsC6lNAI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

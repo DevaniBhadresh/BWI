@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name" translatable="false">FoFlow</string>
+
+    <string name="strIntroSlide">Introduction Slider</string>
+    <string name="strFinish">Finish</string>
+    <string name="strDash">Dashboard Here !</string>
+    <string name="strChooseLang">Choose Language</string>
+    <string name="strDone">Done</string>
+    <string name="strGetStarted" translatable="false">Get Started</string>
+    <string name="strNext" translatable="false">Next</string>
+</resources>

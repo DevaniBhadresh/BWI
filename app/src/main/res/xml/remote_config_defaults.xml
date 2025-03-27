@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<defaults>
+  <entry>
+    <key>ADS_ENABLED</key>
+    <value>false</value>
+  </entry>
+  <entry>
+    <key>LAYOUT_INTRO_NATIVE_AD</key>
+    <value>1</value>
+  </entry>
+  <entry>
+    <key>LAYOUT_LANGUAGE_NATIVE_AD_1</key>
+    <value>1</value>
+  </entry>
+  <entry>
+    <key>LAYOUT_LANGUAGE_NATIVE_AD_2</key>
+    <value>1</value>
+  </entry>
+  <entry>
+    <key>LAYOUT_SPLASH_NATIVE_AD</key>
+    <value>1</value>
+  </entry>
+  <entry>
+    <key>INTRO_NATIVE_AD_2</key>
+    <value>true</value>
+  </entry>
+  <entry>
+    <key>INTRO_NATIVE_AD_3</key>
+    <value>true</value>
+  </entry>
+  <entry>
+    <key>LANGUAGE_NATIVE_AD_1</key>
+    <value>true</value>
+  </entry>
+  <entry>
+    <key>SPLASH_NATIVE_AD</key>
+    <value>true</value>
+  </entry>
+  <entry>
+    <key>INTRO_NATIVE_AD_1</key>
+    <value>true</value>
+  </entry>
+  <entry>
+    <key>LANGUAGE_NATIVE_AD_2</key>
+    <value>true</value>
+  </entry>
+</defaults>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="strIntroSlide">Slide de Introdução</string>
+    <string name="strFinish">Concluir</string>
+    <string name="strDash">Painel aqui!</string>
+    <string name="strChooseLang">Escolha o idioma</string>
+    <string name="strDone">Feito</string>
+</resources>

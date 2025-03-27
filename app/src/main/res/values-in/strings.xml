@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="strIntroSlide">Slide Pengenalan</string>
+    <string name="strFinish">Selesai</string>
+    <string name="strDash">Dashboard Di Sini!</string>
+    <string name="strChooseLang">Pilih Bahasa</string>
+    <string name="strDone">Selesai</string>
+</resources>
