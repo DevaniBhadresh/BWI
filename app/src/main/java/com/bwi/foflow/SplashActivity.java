@@ -36,6 +36,7 @@ public class SplashActivity extends SupperSplashActivity{
     public void onRemoteFetch(boolean isFetched) {
         super.onRemoteFetch(isFetched);
         Log.d(TAG, "Remote config fetch successfully");
+        getAdConfigurations();
     }
 
     @Override

@@ -10,6 +10,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
+import java.util.List;
+import java.util.Set;
+
 
 public class FORemoteConfig {
 
@@ -54,22 +57,40 @@ public class FORemoteConfig {
             public void onComplete(@NonNull Task<Boolean> task) {
                 if (task.isSuccessful()) {
                     boolean updated = task.getResult();
-                    Log.d(TAG, "Config params updated: " + updated);
+                    Log.d(TAG, "Config params updated: " + updated + mRemoteConfig.getBoolean(Const.SPLASH_NATIVE_AD) + mRemoteConfig.getBoolean(Const.LANGUAGE_NATIVE_AD_1) + mRemoteConfig.getBoolean(Const.LANGUAGE_NATIVE_AD_2) + mRemoteConfig.getBoolean(Const.INTRO_NATIVE_AD_1) + mRemoteConfig.getBoolean(Const.INTRO_NATIVE_AD_2) + mRemoteConfig.getBoolean(Const.INTRO_NATIVE_AD_3) + mRemoteConfig.getBoolean(Const.ADS_ENABLED));
 
                     setSplashNativeAd(mRemoteConfig.getBoolean(Const.SPLASH_NATIVE_AD));
+                    setLayoutSplashNativeAd(mRemoteConfig.getLong(Const.LAYOUT_SPLASH_NATIVE_AD));
+
                     setLanguageNativeAd1(mRemoteConfig.getBoolean(Const.LANGUAGE_NATIVE_AD_1));
+                    setLayoutLanguageNativeAd1(mRemoteConfig.getLong(Const.LAYOUT_LANGUAGE_NATIVE_AD_1));
+
                     setLanguageNativeAd2(mRemoteConfig.getBoolean(Const.LANGUAGE_NATIVE_AD_2));
+                    setLayoutLanguageNativeAd2(mRemoteConfig.getLong(Const.LAYOUT_LANGUAGE_NATIVE_AD_2));
+
                     setIntroNativeAd1(mRemoteConfig.getBoolean(Const.INTRO_NATIVE_AD_1));
                     setIntroNativeAd2(mRemoteConfig.getBoolean(Const.INTRO_NATIVE_AD_2));
                     setIntroNativeAd3(mRemoteConfig.getBoolean(Const.INTRO_NATIVE_AD_3));
+                    setLayoutIntroNativeAd(mRemoteConfig.getLong(Const.LAYOUT_INTRO_NATIVE_AD));
+
                     setAdsEnabled(mRemoteConfig.getBoolean(Const.ADS_ENABLED));
                 }
-                 mSingletonListener.onRemoteFetch(true);
+                if (task.isSuccessful()) {
+                    Set<String> keys = mRemoteConfig.getKeysByPrefix(""); // Empty string = all keys
+                    for (String key : keys) {
+                        String value = mRemoteConfig.getString(key);
+                        Log.d("RemoteConfig", "Key: " + key + ", Value: " + value);
+                    }
+                } else {
+                    Log.e("RemoteConfig", "Fetch failed");
+                }
+
+                mSingletonListener.onRemoteFetch(true);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                 mSingletonListener.onRemoteFetch(false);
+                mSingletonListener.onRemoteFetch(false);
 
 
             }
@@ -96,7 +117,7 @@ public class FORemoteConfig {
         setLayoutLanguageNativeAd2(mRemoteConfig.getLong(Const.LAYOUT_LANGUAGE_NATIVE_AD_2));
         setLayoutIntroNativeAd(mRemoteConfig.getLong(Const.LAYOUT_INTRO_NATIVE_AD));
 
-        Log.d(TAG,"Is Ads Enabled : " + isAdsEnabled());
+        Log.d(TAG, "Is Ads Enabled : " + isAdsEnabled());
         Log.d(TAG, "Splash Default Ad : " + getSplashNativeAd());
         Log.d(TAG, "Layout Splash Default Ad : " + getLayoutSplashNativeAd());
         Log.d(TAG, "Lang 1 Default Ad : " + getLanguageNativeAd1());
