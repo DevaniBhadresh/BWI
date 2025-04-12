@@ -7,13 +7,6 @@
     android:gravity="center"
     android:orientation="vertical">
 
-    <!-- Custom Introduction Slider -->
-    <!--<com.bwi.onboard.slider.IntroductionSlider
-        app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/introduction_slider"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />-->
-
     <com.bwi.onboard.slider.IntroductionSlider
         android:id="@+id/introductionSlider"
         app:layout_constraintTop_toTopOf="parent"

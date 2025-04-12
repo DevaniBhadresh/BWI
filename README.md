@@ -199,6 +199,36 @@ protected Fragment getIntroFragmentClass() {
 }
 ```
 
+- Sample code of fragment_introduction_slider.xml
+- Please follow step : 14 for layout_introduction_slider.xml for app:customLayout attributes
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:background="@color/colorPrimaryBackground"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <com.bwi.onboard.slider.IntroductionSlider
+        android:id="@+id/introductionSlider"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:customLayout="@layout/layout_introduction_slider" />
+
+    <!-- Ad container -->
+    <FrameLayout
+        android:id="@+id/ad_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+```
+
 ---
 
 ## Step 11: Set Up `completeOnboarding()`
@@ -236,7 +266,7 @@ private String getDefaultDeviceTheme() {
     return (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) ? "dark" : "light";
 }
 ```
-## Step 14: Design IntroductionSlider layout xml
+## Step 14: Follow guideline to Design IntroductionSlider (layout_introduction_slider.xml) layout
 
 - Make sure to use following UI component with specified IDs
 - ViewPager2 like
