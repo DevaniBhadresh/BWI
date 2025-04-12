@@ -236,7 +236,35 @@ private String getDefaultDeviceTheme() {
     return (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) ? "dark" : "light";
 }
 ```
+## Step 14: Design IntroductionSlider layout xml
 
+- Make sure to use following UI component with specified IDs
+- ViewPager2 like
+```xml
+<androidx.viewpager2.widget.ViewPager2
+    android:id="@+id/view_pager"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
+```
+- TabLayout for indication
+```xml
+<com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:tabIndicatorColor="@color/colorPrimary"
+            app:tabSelectedTextColor="@color/black"
+            app:tabIndicatorHeight="4dp" />
+```
+- Next Button
+```xml
+<Button     
+    android:id="@+id/btnNext"
+    android:text="Next"
+    android:background="@drawable/next_bg"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/_32sdp"/>
+```
 ---
 
 ## Final Notes
