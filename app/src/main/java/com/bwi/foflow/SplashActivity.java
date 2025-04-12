@@ -102,7 +102,7 @@ public class SplashActivity extends SupperSplashActivity{
                         R.layout.fragment_introduction_slider,
                         R.id.ad_container,
                         getNativeAdsLayout(FORemoteConfig.getInstance().getLayoutIntroNativeAd()), //R.layout.native_ad_layout,
-                        R.id.introduction_slider,
+                        R.id.introductionSlider,
                         R.layout.slide_1,
                         R.layout.slide_1,
                         R.layout.slide_1

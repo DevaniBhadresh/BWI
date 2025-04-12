@@ -1,6 +1,10 @@
 package com.bwi.onboard.slider;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,6 +18,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.bwi.onboard.R;
 import com.bwi.onboard.SupperSplashActivity;
+import com.bwi.onboard.utils.PrfsKeys;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 
@@ -28,24 +33,35 @@ public class IntroductionSlider extends ConstraintLayout {
     private Button btnNext;
     private OnSliderChangeListener listener;
 
+    private int customLayoutResId;
+
     public IntroductionSlider(@NonNull Context context) {
         super(context);
         init(context);
     }
 
-    public IntroductionSlider(@NonNull Context context, @Nullable AttributeSet attrs) {
+    /*public IntroductionSlider(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         init(context);
-    }
+    }*/
 
     public IntroductionSlider(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context);
     }
 
+    public IntroductionSlider(@NonNull Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.IntroductionSlider);
+        customLayoutResId = a.getResourceId(R.styleable.IntroductionSlider_customLayout, -1);
+        a.recycle();
+
+        init(context);
+    }
     private void init(Context context) {
 
-        LayoutInflater.from(context).inflate(R.layout.layout_introduction_slider, this, true);
+        LayoutInflater.from(context).inflate(customLayoutResId, this, true);
         viewPager = findViewById(R.id.view_pager);
         tabLayout = findViewById(R.id.tab_layout);
         adapter = new ViewPagerAdapter();
@@ -82,6 +98,9 @@ public class IntroductionSlider extends ConstraintLayout {
                     viewPager.setCurrentItem(viewPager.getCurrentItem() + 1, true);
                 } else {
                     if (context instanceof SupperSplashActivity) {
+                        SharedPreferences preferences = context.getSharedPreferences(PrfsKeys.PREF_NAME, MODE_PRIVATE);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        editor.putBoolean(PrfsKeys.KEY_FIRST_LAUNCH,false).commit();
                         ((SupperSplashActivity) context).completeOnboarding();
                     }
                 }

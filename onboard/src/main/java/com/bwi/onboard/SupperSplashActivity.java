@@ -31,7 +31,7 @@ public abstract class SupperSplashActivity extends AppCompatActivity  implements
     private Map<String, NativeAdHelper> nativeAdHelpers = new HashMap<>();
     private boolean isSplashAdLoaded = false;
     private Runnable splashAdCallback;
-
+    boolean isFirstLaunch = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,17 +39,17 @@ public abstract class SupperSplashActivity extends AppCompatActivity  implements
         setContentView(getActivityLayoutId());
 
         SharedPreferences preferences = getSharedPreferences(PrfsKeys.PREF_NAME, MODE_PRIVATE);
-        boolean isFirstLaunch = preferences.getBoolean(PrfsKeys.KEY_FIRST_LAUNCH, true);
+        isFirstLaunch = preferences.getBoolean(PrfsKeys.KEY_FIRST_LAUNCH, true);
 
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-                if (isFirstLaunch) {
+               // if (isFirstLaunch) {
                     // Load SplashFragment dynamically
                     loadFragment(getSplashFragment());
-                } else {
-                    completeOnboarding();
-                }
+                //} else {
+                //    completeOnboarding();
+                //}
 
                 // Load Ads
                 configureAndLoadAds();
@@ -147,7 +147,14 @@ public abstract class SupperSplashActivity extends AppCompatActivity  implements
     protected abstract int getActivityLayoutId();
 
     public void moveToLanguageSelection() {
-        loadFragment(getLanguageFragmentClass());
+        if (isFirstLaunch) {
+            // Load SplashFragment dynamically
+            loadFragment(getLanguageFragmentClass());
+        } else {
+            completeOnboarding();
+        }
+
+
     }
 
     public void moveToIntroductionSlider() {
