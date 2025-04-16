@@ -97,6 +97,7 @@ public class SplashActivity extends SupperSplashActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        FIRST_LAUNCH_INTERVAL = 500; // Set first launch interval as per requirements. 
         super.onCreate(savedInstanceState);
         App.foRemoteConfig.setInterfaz(this);
     }

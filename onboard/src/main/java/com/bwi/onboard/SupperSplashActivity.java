@@ -25,7 +25,7 @@ import com.google.android.gms.ads.nativead.NativeAd;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class SupperSplashActivity extends AppCompatActivity  implements FORemoteConfig.SingletonListener{
+public abstract class SupperSplashActivity extends AppCompatActivity implements FORemoteConfig.SingletonListener {
 
     private final String TAG = SupperSplashActivity.class.getSimpleName();
     private Map<String, NativeAdHelper> nativeAdHelpers = new HashMap<>();
@@ -33,20 +33,24 @@ public abstract class SupperSplashActivity extends AppCompatActivity  implements
     private Runnable splashAdCallback;
     boolean isFirstLaunch = true;
 
+    protected int FIRST_LAUNCH_INTERVAL = 1000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getActivityLayoutId());
-
+        Log.d(TAG, "Interval : " + FIRST_LAUNCH_INTERVAL);
         SharedPreferences preferences = getSharedPreferences(PrfsKeys.PREF_NAME, MODE_PRIVATE);
         isFirstLaunch = preferences.getBoolean(PrfsKeys.KEY_FIRST_LAUNCH, true);
 
+        if (PrfsKeys.isRemoteConfigFetched(SupperSplashActivity.this))
+            FIRST_LAUNCH_INTERVAL = 0;
         new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
             @Override
             public void run() {
-               // if (isFirstLaunch) {
-                    // Load SplashFragment dynamically
-                    loadFragment(getSplashFragment());
+                // if (isFirstLaunch) {
+                // Load SplashFragment dynamically
+                loadFragment(getSplashFragment());
                 //} else {
                 //    completeOnboarding();
                 //}
@@ -54,7 +58,7 @@ public abstract class SupperSplashActivity extends AppCompatActivity  implements
                 // Load Ads
                 configureAndLoadAds();
             }
-        }, 2000); // 2000 milliseconds = 2 seconds
+        }, FIRST_LAUNCH_INTERVAL); // 2000 milliseconds = 2 seconds
 
 
     }
@@ -63,6 +67,7 @@ public abstract class SupperSplashActivity extends AppCompatActivity  implements
     public void onRemoteFetch(boolean isFetched) {
 
         if (isFetched) {
+            PrfsKeys.setRemoteConfigFetched(SupperSplashActivity.this, true);
             configureAndLoadAds();
             Log.d(TAG, "Remote Config (Splash) : Successfully fetched");
             Log.d(TAG, FORemoteConfig.Const.ADS_ENABLED + " : " + FORemoteConfig.getInstance().isAdsEnabled());
@@ -80,6 +85,7 @@ public abstract class SupperSplashActivity extends AppCompatActivity  implements
             Log.d(TAG, "Remote Config (Splash) : Failed to fetched");
         }
     }
+
     private void loadFragment(Fragment fragmentClass) {
 
 
@@ -89,8 +95,8 @@ public abstract class SupperSplashActivity extends AppCompatActivity  implements
         try {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction transaction = fragmentManager.beginTransaction();
-            if (!(fragmentClass instanceof SplashFragment)){
-                transaction.setCustomAnimations(slideInLeft,slideOutLeft);
+            if (!(fragmentClass instanceof SplashFragment)) {
+                transaction.setCustomAnimations(slideInLeft, slideOutLeft);
             }
 
             transaction.replace(R.id.fragment_container, fragmentClass);
@@ -109,7 +115,7 @@ public abstract class SupperSplashActivity extends AppCompatActivity  implements
             NativeAdHelper adHelper = new NativeAdHelper();
             nativeAdHelpers.put(key, adHelper);
             //Log.d(SupperSplashActivity.class.getSimpleName(), "canShowAd : " + config.canShowAd());
-            if (config.canShowAd()){
+            if (config.canShowAd()) {
                 adHelper.loadNativeAd(this, config.getAdUnitId(), new NativeAdHelper.NativeAdListener() {
                     @Override
                     public void onNativeAdLoaded(NativeAd ad) {
@@ -133,6 +139,7 @@ public abstract class SupperSplashActivity extends AppCompatActivity  implements
         //Log.d(SupperSplashActivity.class.getSimpleName(), "Ad Key : " + key + " Ad ID : " + getAdConfigurations().get(key).getAdUnitId());
         return nativeAdHelpers.get(key); // Retrieve the helper from the map
     }
+
     protected abstract Map<String, AdConfig> getAdConfigurations();
 
     /*protected abstract Class<? extends Fragment> getSplashFragmentClass();*/
@@ -162,7 +169,6 @@ public abstract class SupperSplashActivity extends AppCompatActivity  implements
     }
 
     public abstract void completeOnboarding();
-
 
 
     public boolean isSplashAdLoaded() {

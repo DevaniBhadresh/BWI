@@ -52,21 +52,13 @@ public class SplashFragment extends Fragment {
         int layoutId = args.getInt(ARG_LAYOUT_ID);
         int adContainerId = args.getInt(ARG_AD_CONTAINER_ID);
         int adLayoutId = args.getInt(ARG_AD_LAYOUT_ID);
+        int shimmerId = args.getInt(ARG_AD_SHIMMER_ID);
 
 
         View view = inflater.inflate(layoutId, container, false);
         adContainer = view.findViewById(adContainerId);
-        ShimmerFrameLayout  adShimmerId = (ShimmerFrameLayout) view.findViewById(args.getInt(ARG_AD_SHIMMER_ID));
+        ShimmerFrameLayout  adShimmerId = (ShimmerFrameLayout) view.findViewById(shimmerId);
         adShimmerId.startShimmer();
-       /* // Ensure the hosting activity implements SplashFragmentCallback
-        if (getActivity() instanceof SplashFragmentCallback) {
-            callback = (SplashFragmentCallback) getActivity();
-        } else {
-            throw new IllegalStateException("Hosting activity must implement SplashFragmentCallback.");
-        }*/
-
-        // Show the ad if available
-        //showAdInContainer(adLayoutId);
         loadAndShowAd(adLayoutId);
 
         // Start a 5-second timer for the splash screen

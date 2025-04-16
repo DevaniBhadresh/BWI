@@ -29,14 +29,14 @@
 
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/shimmer_container_native"
-            app:shimmer_auto_start="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary">
-            <include layout="@layout/native_ad_layout"/>
+            android:background="@color/colorPrimary"
+            app:shimmer_auto_start="true">
+
+            <include layout="@layout/native_ad_layout" />
         </com.facebook.shimmer.ShimmerFrameLayout>
     </FrameLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
