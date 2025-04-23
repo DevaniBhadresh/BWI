@@ -92,7 +92,12 @@ public class LanguageSelectionFragment extends Fragment {
                 updateLocale(selectedLanguage.getCode());
 
                 if (getActivity() instanceof SupperSplashActivity) {
-                    ((SupperSplashActivity) getActivity()).moveToIntroductionSlider();
+                    ((SupperSplashActivity) requireActivity()).showInterstitial(
+                            AdKeys.SPLASH_INTER_AD,
+                            () -> ((SupperSplashActivity) requireActivity()).moveToIntroductionSlider()
+                    );
+
+                    //((SupperSplashActivity) getActivity()).moveToIntroductionSlider();
                 }
             }
         });

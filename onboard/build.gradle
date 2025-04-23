@@ -67,7 +67,7 @@ afterEvaluate {
                 from components.getByName("release") // Correct way to get release component
                 groupId = 'com.github.DevaniBhadresh' // Replace with your GitHub username
                 artifactId = 'onboard'  // Library name
-                version = '1.0.3'  // Change when updating
+                version = '1.0.4'  // Change when updating
             }
         }
     }

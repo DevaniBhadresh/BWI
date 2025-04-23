@@ -25,7 +25,7 @@ public class NativeAdHelper {
     public void loadNativeAd(Context context, String adUnitId, final NativeAdListener listener) {
         AdLoader adLoader = new AdLoader.Builder(context, adUnitId)
                 .forNativeAd(ad -> {
-                    Log.d(TAG, "Native ad loaded successfully");
+                    Log.d(TAG, "Native Ad : Id : " + adUnitId + "Loaded");
                     nativeAd = ad;
                     if (listener != null) {
                         listener.onNativeAdLoaded(ad);
@@ -34,7 +34,7 @@ public class NativeAdHelper {
                 .withAdListener(new com.google.android.gms.ads.AdListener() {
                     @Override
                     public void onAdFailedToLoad(LoadAdError adError) {
-                        Log.e(TAG, "Native ad failed to load: " + adError.getMessage());
+                        Log.d(TAG, "Native Ad : Id : " + adUnitId + "Failed : " + adError.getMessage());
                         if (listener != null) {
                             listener.onNativeAdFailedToLoad(adError);
                         }
@@ -47,29 +47,14 @@ public class NativeAdHelper {
         adLoader.loadAd(new AdRequest.Builder().build());
     }
 
-    // Show native ad in a specified container
-    /*public void showNativeAd(Context context, FrameLayout adContainer) {
-        if (nativeAd != null) {
-            NativeAdView adView = (NativeAdView) ((SupperSplashActivity) context).getLayoutInflater().inflate(R.layout.lib_native_ad_layout, null);
-            populateNativeAdView(nativeAd, adView);
-            adContainer.removeAllViews();
-            adContainer.addView(adView);
-        } else {
-            adContainer.removeAllViews();
-            Log.e(TAG, "Native ad is not loaded yet.");
-        }
-    }*/
-
     public void showNativeAd(Context context, FrameLayout adContainer,int adLayoutId) {
         if (nativeAd != null) {
-            Log.d(TAG, "Native ad is loaded. ");
             NativeAdView adView = (NativeAdView) ((SupperSplashActivity) context).getLayoutInflater().inflate(adLayoutId, null);
             populateNativeAdView(nativeAd, adView);
             adContainer.removeAllViews();
             adContainer.addView(adView);
         } else {
             adContainer.removeAllViews();
-            Log.e(TAG, "Native ad is not loaded yet.");
         }
     }
 
@@ -98,18 +83,6 @@ public class NativeAdHelper {
         if (adView.findViewById(R.id.ad_media) != null){
             adView.setMediaView((adView.findViewById(R.id.ad_media)));
         }
-
-
-        // Populate the content
-/*
-
-        if (nativeAd.getIcon() != null) {
-
-        } else {
-            adView.getIconView().setVisibility(View.GONE);
-        }
-*/
-
 
         adView.setNativeAd(nativeAd);
     }

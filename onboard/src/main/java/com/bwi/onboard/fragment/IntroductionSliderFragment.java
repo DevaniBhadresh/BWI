@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment;
 
 import com.bwi.onboard.SupperSplashActivity;
 import com.bwi.onboard.ads.AdKeys;
+import com.bwi.onboard.ads.AdType;
+import com.bwi.onboard.ads.BannerAdHelper;
 import com.bwi.onboard.ads.NativeAdHelper;
 import com.bwi.onboard.slider.IntroductionSlider;
 import com.bwi.onboard.slider.OnSliderChangeListener;
@@ -23,6 +25,7 @@ import java.util.Arrays;
 public class IntroductionSliderFragment extends Fragment implements OnSliderChangeListener {
     private static final String ARG_LAYOUT_ID = "layout_id";
     private static final String ARG_AD_CONTAINER_ID = "ad_container_id";
+    private static final String ARG_AD_TYPE = "adType";
     private static final String ARG_AD_LAYOUT_ID = "adLayoutId";
     private static final String ARG_INTRODUCTION_SLIDER = "introduction_slider";
     private static final String ARG_LAYOUT_SLIDE_1="slide_1";
@@ -30,14 +33,17 @@ public class IntroductionSliderFragment extends Fragment implements OnSliderChan
     private static final String ARG_LAYOUT_SLIDE_3="slide_3";
 
     private FrameLayout adContainer;
-    private String defaultKey = AdKeys.INTRO_NATIVE_AD_1;
+    private String defaultKey = AdKeys.INTRO_AD_1;
     IntroductionSlider introductionSlider;
     int adLayoutId;
-    public static IntroductionSliderFragment newInstance(int layoutId, int adContainerId,int adLayoutId, int introduction_slider, int layout_slide_1,int layout_slide_2,int layout_slide_3) {
+
+    String adType;
+    public static IntroductionSliderFragment newInstance(int layoutId, int adContainerId, String adType,int adLayoutId,int introduction_slider, int layout_slide_1,int layout_slide_2,int layout_slide_3) {
         IntroductionSliderFragment fragment = new IntroductionSliderFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_LAYOUT_ID, layoutId);
         args.putInt(ARG_AD_CONTAINER_ID, adContainerId);
+        args.putString(ARG_AD_TYPE,adType);
         args.putInt(ARG_AD_LAYOUT_ID, adLayoutId);
         args.putInt(ARG_INTRODUCTION_SLIDER,introduction_slider);
         args.putInt(ARG_LAYOUT_SLIDE_1,layout_slide_1);
@@ -57,6 +63,7 @@ public class IntroductionSliderFragment extends Fragment implements OnSliderChan
 
         int layoutId = args.getInt(ARG_LAYOUT_ID);
         int adContainerId = args.getInt(ARG_AD_CONTAINER_ID);
+        adType = args.getString(ARG_AD_TYPE);
         adLayoutId = args.getInt(ARG_AD_LAYOUT_ID);
         int introduction_slider = args.getInt(ARG_INTRODUCTION_SLIDER);
         int layout_slide_1 = args.getInt(ARG_LAYOUT_SLIDE_1);
@@ -94,10 +101,16 @@ public class IntroductionSliderFragment extends Fragment implements OnSliderChan
     private void loadAndDisplayAd(String key) {
         if (getActivity() instanceof SupperSplashActivity) {
             SupperSplashActivity supperSplashActivity = (SupperSplashActivity) getActivity();
-            NativeAdHelper nativeAdHelper = supperSplashActivity.getNativeAdHelper(key);
+            if (adType.equals(AdType.AD_NATIVE)){
 
-            // Show the preloaded native ad
-            nativeAdHelper.showNativeAd(supperSplashActivity, adContainer,adLayoutId);
+                NativeAdHelper nativeAdHelper = supperSplashActivity.getNativeAdHelper(key);
+                nativeAdHelper.showNativeAd(supperSplashActivity, adContainer,adLayoutId);
+            } else if (adType.equals(AdType.AD_BANNER)){
+
+                BannerAdHelper bannerAdHelper = supperSplashActivity.getBannerAdHelper(key);
+                bannerAdHelper.showBannerAd(adContainer);
+            }
+
         }
     }
 
@@ -106,10 +119,10 @@ public class IntroductionSliderFragment extends Fragment implements OnSliderChan
     public void onSliderItemChanged(int position) {
         switch (position) {
             case 1:
-                loadAndDisplayAd(AdKeys.INTRO_NATIVE_AD_2);
+                loadAndDisplayAd(AdKeys.INTRO_AD_2);
                 break;
             case 2:
-                loadAndDisplayAd(AdKeys.INTRO_NATIVE_AD_3);
+                loadAndDisplayAd(AdKeys.INTRO_AD_3);
                 break;
             default:
                 loadAndDisplayAd(defaultKey);

@@ -4,9 +4,12 @@ public class AdConfig {
     private final String adUnitId;
     private final boolean canShowAd;
 
-    public AdConfig(String adUnitId,boolean canShowAd) {
+    private final  String adType;
+
+    public AdConfig(String adUnitId,boolean canShowAd,String adType) {
         this.adUnitId = adUnitId;
         this.canShowAd = canShowAd;
+        this.adType = adType;
     }
 
     public String getAdUnitId() {
@@ -15,5 +18,9 @@ public class AdConfig {
 
     public boolean canShowAd(){
         return canShowAd;
+    }
+
+    public String getAdType() {
+        return adType;
     }
 }

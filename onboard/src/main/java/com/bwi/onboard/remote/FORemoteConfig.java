@@ -10,7 +10,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
-import java.util.List;
 import java.util.Set;
 
 
@@ -23,17 +22,23 @@ public class FORemoteConfig {
 
     public class Const {
         // Params
-        public static final String ADS_ENABLED = "ADS_ENABLED";
-        public static final String SPLASH_NATIVE_AD = "SPLASH_NATIVE_AD";
-        public static final String LANGUAGE_NATIVE_AD_1 = "LANGUAGE_NATIVE_AD_1";
-        public static final String LANGUAGE_NATIVE_AD_2 = "LANGUAGE_NATIVE_AD_2";
-        public static final String INTRO_NATIVE_AD_1 = "INTRO_NATIVE_AD_1";
-        public static final String INTRO_NATIVE_AD_2 = "INTRO_NATIVE_AD_2";
-        public static final String INTRO_NATIVE_AD_3 = "INTRO_NATIVE_AD_3";
-        public static final String LAYOUT_INTRO_NATIVE_AD = "LAYOUT_INTRO_NATIVE_AD";
-        public static final String LAYOUT_LANGUAGE_NATIVE_AD_1 = "LAYOUT_LANGUAGE_NATIVE_AD_1";
-        public static final String LAYOUT_LANGUAGE_NATIVE_AD_2 = "LAYOUT_LANGUAGE_NATIVE_AD_2";
-        public static final String LAYOUT_SPLASH_NATIVE_AD = "LAYOUT_SPLASH_NATIVE_AD";
+        public static final String AD_ENABLED = "AD_ENABLED";
+        public static final String AD_TYPE_SPLASH = "AD_TYPE_SPLASH";
+        public static final String AD_TYPE_INTRO = "AD_TYPE_INTRO";
+        public static final String LAYOUT_NATIVE_AD_INTRO = "LAYOUT_NATIVE_AD_INTRO";
+        public static final String LAYOUT_NATIVE_AD_LANGUAGE_1 = "LAYOUT_NATIVE_AD_LANGUAGE_1";
+        public static final String LAYOUT_NATIVE_AD_LANGUAGE_2 = "LAYOUT_NATIVE_AD_LANGUAGE_2";
+        public static final String LAYOUT_NATIVE_AD_SPLASH = "LAYOUT_NATIVE_AD_SPLASH";
+        public static final String SHOW_SPLASH_AD = "SHOW_SPLASH_AD";
+        public static final String SHOW_SPLASH_INTER_AD = "SHOW_SPLASH_INTER_AD";
+        public static final String SHOW_LANGUAGE_NATIVE_AD_1 = "SHOW_LANGUAGE_NATIVE_AD_1";
+        public static final String SHOW_LANGUAGE_NATIVE_AD_2 = "SHOW_LANGUAGE_NATIVE_AD_2";
+        public static final String SHOW_INTRO_AD_1 = "SHOW_INTRO_AD_1";
+        public static final String SHOW_INTRO_AD_2 = "SHOW_INTRO_AD_2";
+        public static final String SHOW_INTRO_AD_3 = "SHOW_INTRO_AD_3";
+
+
+
     }
 
 
@@ -57,23 +62,27 @@ public class FORemoteConfig {
             public void onComplete(@NonNull Task<Boolean> task) {
                 if (task.isSuccessful()) {
                     boolean updated = task.getResult();
-                    Log.d(TAG, "Config params updated: " + updated + mRemoteConfig.getBoolean(Const.SPLASH_NATIVE_AD) + mRemoteConfig.getBoolean(Const.LANGUAGE_NATIVE_AD_1) + mRemoteConfig.getBoolean(Const.LANGUAGE_NATIVE_AD_2) + mRemoteConfig.getBoolean(Const.INTRO_NATIVE_AD_1) + mRemoteConfig.getBoolean(Const.INTRO_NATIVE_AD_2) + mRemoteConfig.getBoolean(Const.INTRO_NATIVE_AD_3) + mRemoteConfig.getBoolean(Const.ADS_ENABLED));
+                    Log.d(TAG, "Config params updated: " + updated + mRemoteConfig.getBoolean(Const.SHOW_SPLASH_AD) + mRemoteConfig.getBoolean(Const.SHOW_LANGUAGE_NATIVE_AD_1) + mRemoteConfig.getBoolean(Const.SHOW_LANGUAGE_NATIVE_AD_2) + mRemoteConfig.getBoolean(Const.SHOW_INTRO_AD_1) + mRemoteConfig.getBoolean(Const.SHOW_INTRO_AD_2) + mRemoteConfig.getBoolean(Const.SHOW_INTRO_AD_3) + mRemoteConfig.getBoolean(Const.AD_ENABLED));
 
-                    setSplashNativeAd(mRemoteConfig.getBoolean(Const.SPLASH_NATIVE_AD));
-                    setLayoutSplashNativeAd(mRemoteConfig.getLong(Const.LAYOUT_SPLASH_NATIVE_AD));
+                    setShowSplashAd(mRemoteConfig.getBoolean(Const.SHOW_SPLASH_AD));
+                    setShowSplashInterAd(mRemoteConfig.getBoolean(Const.SHOW_SPLASH_INTER_AD));
+                    setLayoutNativeAdSplash(mRemoteConfig.getLong(Const.LAYOUT_NATIVE_AD_SPLASH));
 
-                    setLanguageNativeAd1(mRemoteConfig.getBoolean(Const.LANGUAGE_NATIVE_AD_1));
-                    setLayoutLanguageNativeAd1(mRemoteConfig.getLong(Const.LAYOUT_LANGUAGE_NATIVE_AD_1));
+                    setShowLanguageNativeAd1(mRemoteConfig.getBoolean(Const.SHOW_LANGUAGE_NATIVE_AD_1));
+                    setLayoutNativeAdLanguage1(mRemoteConfig.getLong(Const.LAYOUT_NATIVE_AD_LANGUAGE_1));
 
-                    setLanguageNativeAd2(mRemoteConfig.getBoolean(Const.LANGUAGE_NATIVE_AD_2));
-                    setLayoutLanguageNativeAd2(mRemoteConfig.getLong(Const.LAYOUT_LANGUAGE_NATIVE_AD_2));
+                    setShowLanguageNativeAd2(mRemoteConfig.getBoolean(Const.SHOW_LANGUAGE_NATIVE_AD_2));
+                    setLayoutNativeAdLanguage2(mRemoteConfig.getLong(Const.LAYOUT_NATIVE_AD_LANGUAGE_2));
 
-                    setIntroNativeAd1(mRemoteConfig.getBoolean(Const.INTRO_NATIVE_AD_1));
-                    setIntroNativeAd2(mRemoteConfig.getBoolean(Const.INTRO_NATIVE_AD_2));
-                    setIntroNativeAd3(mRemoteConfig.getBoolean(Const.INTRO_NATIVE_AD_3));
-                    setLayoutIntroNativeAd(mRemoteConfig.getLong(Const.LAYOUT_INTRO_NATIVE_AD));
+                    setShowIntroAd1(mRemoteConfig.getBoolean(Const.SHOW_INTRO_AD_1));
+                    setShowIntroAd2(mRemoteConfig.getBoolean(Const.SHOW_INTRO_AD_2));
+                    setShowIntroAd3(mRemoteConfig.getBoolean(Const.SHOW_INTRO_AD_3));
+                    setAdTypeIntro(mRemoteConfig.getString(Const.AD_TYPE_INTRO));
+                    setAdTypeSplash(mRemoteConfig.getString(Const.AD_TYPE_SPLASH));
 
-                    setAdsEnabled(mRemoteConfig.getBoolean(Const.ADS_ENABLED));
+                    setLayoutNativeAdIntro(mRemoteConfig.getLong(Const.LAYOUT_NATIVE_AD_INTRO));
+
+                    setAdsEnabled(mRemoteConfig.getBoolean(Const.AD_ENABLED));
                 }
                 if (task.isSuccessful()) {
                     Set<String> keys = mRemoteConfig.getKeysByPrefix(""); // Empty string = all keys
@@ -81,11 +90,12 @@ public class FORemoteConfig {
                         String value = mRemoteConfig.getString(key);
                         Log.d("RemoteConfig", "Key: " + key + ", Value: " + value);
                     }
+                    mSingletonListener.onRemoteFetch(true);
                 } else {
                     Log.e("RemoteConfig", "Fetch failed");
                 }
 
-                mSingletonListener.onRemoteFetch(true);
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -105,29 +115,32 @@ public class FORemoteConfig {
         mRemoteConfig.setConfigSettingsAsync(configSettings);
         //mRemoteConfig.setDefaultsAsync(R.xml.remote_config_defaults);
 
-        setAdsEnabled(mRemoteConfig.getBoolean(Const.ADS_ENABLED));
-        setSplashNativeAd(mRemoteConfig.getBoolean(Const.SPLASH_NATIVE_AD));
-        setLanguageNativeAd1(mRemoteConfig.getBoolean(Const.LANGUAGE_NATIVE_AD_1));
-        setLanguageNativeAd2(mRemoteConfig.getBoolean(Const.LANGUAGE_NATIVE_AD_2));
-        setIntroNativeAd1(mRemoteConfig.getBoolean(Const.INTRO_NATIVE_AD_1));
-        setIntroNativeAd2(mRemoteConfig.getBoolean(Const.INTRO_NATIVE_AD_2));
-        setIntroNativeAd3(mRemoteConfig.getBoolean(Const.INTRO_NATIVE_AD_3));
-        setLayoutSplashNativeAd(mRemoteConfig.getLong(Const.LAYOUT_SPLASH_NATIVE_AD));
-        setLayoutLanguageNativeAd1(mRemoteConfig.getLong(Const.LAYOUT_LANGUAGE_NATIVE_AD_1));
-        setLayoutLanguageNativeAd2(mRemoteConfig.getLong(Const.LAYOUT_LANGUAGE_NATIVE_AD_2));
-        setLayoutIntroNativeAd(mRemoteConfig.getLong(Const.LAYOUT_INTRO_NATIVE_AD));
+        setAdsEnabled(mRemoteConfig.getBoolean(Const.AD_ENABLED));
+        setShowSplashAd(mRemoteConfig.getBoolean(Const.SHOW_SPLASH_AD));
+        setShowSplashInterAd(mRemoteConfig.getBoolean(Const.SHOW_SPLASH_INTER_AD));
+        setShowLanguageNativeAd1(mRemoteConfig.getBoolean(Const.SHOW_LANGUAGE_NATIVE_AD_1));
+        setShowLanguageNativeAd2(mRemoteConfig.getBoolean(Const.SHOW_LANGUAGE_NATIVE_AD_2));
+        setShowIntroAd1(mRemoteConfig.getBoolean(Const.SHOW_INTRO_AD_1));
+        setShowIntroAd2(mRemoteConfig.getBoolean(Const.SHOW_INTRO_AD_2));
+        setShowIntroAd3(mRemoteConfig.getBoolean(Const.SHOW_INTRO_AD_3));
+        setLayoutNativeAdSplash(mRemoteConfig.getLong(Const.LAYOUT_NATIVE_AD_SPLASH));
+        setLayoutNativeAdLanguage1(mRemoteConfig.getLong(Const.LAYOUT_NATIVE_AD_LANGUAGE_1));
+        setLayoutNativeAdLanguage2(mRemoteConfig.getLong(Const.LAYOUT_NATIVE_AD_LANGUAGE_2));
+        setLayoutNativeAdIntro(mRemoteConfig.getLong(Const.LAYOUT_NATIVE_AD_INTRO));
+        setAdTypeIntro(mRemoteConfig.getString(Const.AD_TYPE_INTRO));
+        setAdTypeSplash(mRemoteConfig.getString(Const.AD_TYPE_SPLASH));
 
         Log.d(TAG, "Is Ads Enabled : " + isAdsEnabled());
-        Log.d(TAG, "Splash Default Ad : " + getSplashNativeAd());
-        Log.d(TAG, "Layout Splash Default Ad : " + getLayoutSplashNativeAd());
-        Log.d(TAG, "Lang 1 Default Ad : " + getLanguageNativeAd1());
-        Log.d(TAG, "Layout Lang 1 Default Ad : " + getLayoutLanguageNativeAd1());
-        Log.d(TAG, "Lang 2 Default Ad : " + getLanguageNativeAd2());
-        Log.d(TAG, "Layout Lang 2 Default Ad : " + getLayoutLanguageNativeAd2());
-        Log.d(TAG, "Intro 1 Default Ad : " + getIntroNativeAd1());
-        Log.d(TAG, "Intro 2 Default Ad : " + getIntroNativeAd2());
-        Log.d(TAG, "Intro 3 Default Ad : " + getIntroNativeAd3());
-        Log.d(TAG, "Layout Intro Default Ad : " + getLayoutIntroNativeAd());
+        Log.d(TAG, "Splash Default Ad : " + getShowSplashAd());
+        Log.d(TAG, "Layout Splash Default Ad : " + getLayoutNativeAdSplash());
+        Log.d(TAG, "Lang 1 Default Ad : " + getShowLanguageNativeAd1());
+        Log.d(TAG, "Layout Lang 1 Default Ad : " + getLayoutNativeAdLanguage1());
+        Log.d(TAG, "Lang 2 Default Ad : " + getShowLanguageNativeAd2());
+        Log.d(TAG, "Layout Lang 2 Default Ad : " + getLayoutNativeAdLanguage2());
+        Log.d(TAG, "Intro 1 Default Ad : " + getShowIntroAd1());
+        Log.d(TAG, "Intro 2 Default Ad : " + getShowIntroAd2());
+        Log.d(TAG, "Intro 3 Default Ad : " + getShowIntroAd3());
+        Log.d(TAG, "Layout Intro Default Ad : " + getLayoutNativeAdIntro());
 
     }
 
@@ -135,17 +148,25 @@ public class FORemoteConfig {
     // Getter / Setter
     // Params v1
     private boolean adsEnabled;
-    private boolean splashNativeAd;
-    private boolean languageNativeAd1;
-    private boolean languageNativeAd2;
-    private boolean introNativeAd1;
-    private boolean introNativeAd2;
-    private boolean introNativeAd3;
+    private String adTypeSplash;
+    private String adTypeIntro;
+    private long layoutNativeAdIntro;
+    private long layoutNativeAdLanguage1;
+    private long layoutNativeAdLanguage2;
 
-    private long layoutSplashNativeAd;
-    private long layoutLanguageNativeAd1;
-    private long layoutLanguageNativeAd2;
-    private long layoutIntroNativeAd;
+    private long layoutNativeAdSplash;
+
+    private boolean showSplashAd;
+    private boolean showSplashInterAd;
+
+
+    private boolean showLanguageNativeAd1;
+    private boolean showLanguageNativeAd2;
+    private boolean showIntroAd1;
+    private boolean showIntroAd2;
+    private boolean showIntroAd3;
+
+
 
     public boolean isAdsEnabled() {
         return adsEnabled;
@@ -155,84 +176,108 @@ public class FORemoteConfig {
         this.adsEnabled = adsEnabled;
     }
 
-    public boolean getSplashNativeAd() {
-        return splashNativeAd;
+    public boolean getShowSplashAd() {
+        return showSplashAd;
     }
 
-    public void setSplashNativeAd(boolean splashNativeAd) {
-        this.splashNativeAd = splashNativeAd;
+    public void setShowSplashAd(boolean showSplashAd) {
+        this.showSplashAd = showSplashAd;
     }
 
-    public boolean getLanguageNativeAd1() {
-        return languageNativeAd1;
+    public String getAdTypeSplash() {
+        return adTypeSplash;
     }
 
-    public void setLanguageNativeAd1(boolean languageNativeAd1) {
-        this.languageNativeAd1 = languageNativeAd1;
+    public void setAdTypeSplash(String adTypeSplash) {
+        this.adTypeSplash = adTypeSplash;
     }
 
-    public boolean getLanguageNativeAd2() {
-        return languageNativeAd2;
+    public boolean getShowSplashInterAd() {
+        return showSplashInterAd;
     }
 
-    public void setLanguageNativeAd2(boolean languageNativeAd2) {
-        this.languageNativeAd2 = languageNativeAd2;
+    public void setShowSplashInterAd(boolean showSplashInterAd) {
+        this.showSplashInterAd = showSplashInterAd;
     }
 
-    public boolean getIntroNativeAd1() {
-        return introNativeAd1;
+    public boolean getShowLanguageNativeAd1() {
+        return showLanguageNativeAd1;
     }
 
-    public void setIntroNativeAd1(boolean introNativeAd1) {
-        this.introNativeAd1 = introNativeAd1;
+    public void setShowLanguageNativeAd1(boolean showLanguageNativeAd1) {
+        this.showLanguageNativeAd1 = showLanguageNativeAd1;
     }
 
-    public boolean getIntroNativeAd2() {
-        return introNativeAd2;
+    public boolean getShowLanguageNativeAd2() {
+        return showLanguageNativeAd2;
     }
 
-    public void setIntroNativeAd2(boolean introNativeAd2) {
-        this.introNativeAd2 = introNativeAd2;
+    public void setShowLanguageNativeAd2(boolean showLanguageNativeAd2) {
+        this.showLanguageNativeAd2 = showLanguageNativeAd2;
     }
 
-    public boolean getIntroNativeAd3() {
-        return introNativeAd3;
+    public boolean getShowIntroAd1() {
+        return showIntroAd1;
     }
 
-    public void setIntroNativeAd3(boolean introNativeAd3) {
-        this.introNativeAd3 = introNativeAd3;
+    public void setShowIntroAd1(boolean showIntroAd1) {
+        this.showIntroAd1 = showIntroAd1;
     }
 
-    public long getLayoutSplashNativeAd() {
-        return layoutSplashNativeAd;
+    public boolean getShowIntroAd2() {
+        return showIntroAd2;
     }
 
-    public void setLayoutSplashNativeAd(long layoutSplashNativeAd) {
-        this.layoutSplashNativeAd = layoutSplashNativeAd;
+    public void setShowIntroAd2(boolean showIntroAd2) {
+        this.showIntroAd2 = showIntroAd2;
     }
 
-    public long getLayoutLanguageNativeAd1() {
-        return layoutLanguageNativeAd1;
+    public boolean getShowIntroAd3() {
+        return showIntroAd3;
     }
 
-    public void setLayoutLanguageNativeAd1(long layoutLanguageNativeAd1) {
-        this.layoutLanguageNativeAd1 = layoutLanguageNativeAd1;
+    public void setShowIntroAd3(boolean showIntroAd3) {
+        this.showIntroAd3 = showIntroAd3;
     }
 
-    public long getLayoutLanguageNativeAd2() {
-        return layoutLanguageNativeAd2;
+    public long getLayoutNativeAdSplash() {
+        return layoutNativeAdSplash;
     }
 
-    public void setLayoutLanguageNativeAd2(long layoutLanguageNativeAd2) {
-        this.layoutLanguageNativeAd2 = layoutLanguageNativeAd2;
+    public void setLayoutNativeAdSplash(long layoutNativeAdSplash) {
+        this.layoutNativeAdSplash = layoutNativeAdSplash;
     }
 
-    public long getLayoutIntroNativeAd() {
-        return layoutIntroNativeAd;
+    public long getLayoutNativeAdLanguage1() {
+        return layoutNativeAdLanguage1;
     }
 
-    public void setLayoutIntroNativeAd(long layoutIntroNativeAd) {
-        this.layoutIntroNativeAd = layoutIntroNativeAd;
+    public void setLayoutNativeAdLanguage1(long layoutNativeAdLanguage1) {
+        this.layoutNativeAdLanguage1 = layoutNativeAdLanguage1;
+    }
+
+    public long getLayoutNativeAdLanguage2() {
+        return layoutNativeAdLanguage2;
+    }
+
+    public void setLayoutNativeAdLanguage2(long layoutNativeAdLanguage2) {
+        this.layoutNativeAdLanguage2 = layoutNativeAdLanguage2;
+    }
+
+    public long getLayoutNativeAdIntro() {
+        return layoutNativeAdIntro;
+    }
+
+    public void setLayoutNativeAdIntro(long layoutNativeAdIntro) {
+        this.layoutNativeAdIntro = layoutNativeAdIntro;
+    }
+
+    public String getAdTypeIntro() {
+        return adTypeIntro;
+    }
+
+    public void setAdTypeIntro(String adTypeIntro) {
+        this.adTypeIntro = adTypeIntro;
     }
 
     // Interface
