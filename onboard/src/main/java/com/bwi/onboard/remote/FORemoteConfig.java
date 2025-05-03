@@ -38,7 +38,6 @@ public class FORemoteConfig {
         public static final String SHOW_INTRO_AD_3 = "SHOW_INTRO_AD_3";
 
 
-
     }
 
 
@@ -90,7 +89,9 @@ public class FORemoteConfig {
                         String value = mRemoteConfig.getString(key);
                         Log.d("RemoteConfig", "Key: " + key + ", Value: " + value);
                     }
-                    mSingletonListener.onRemoteFetch(true);
+                    if (mSingletonListener != null)
+                        mSingletonListener.onRemoteFetch(true);
+
                 } else {
                     Log.e("RemoteConfig", "Fetch failed");
                 }
@@ -100,9 +101,8 @@ public class FORemoteConfig {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                mSingletonListener.onRemoteFetch(false);
-
-
+                if (mSingletonListener != null)
+                    mSingletonListener.onRemoteFetch(false);
             }
         });
     }
@@ -165,7 +165,6 @@ public class FORemoteConfig {
     private boolean showIntroAd1;
     private boolean showIntroAd2;
     private boolean showIntroAd3;
-
 
 
     public boolean isAdsEnabled() {
